@@ -10,7 +10,7 @@
 ## 一、目录结构
 
 ```
-Plum921-dowhat/
+Plum921-dowhat.github.io/
 ├── index.html            页面骨架（区块与占位标记都在这里）
 ├── 404.html              GitHub Pages 的 404 页
 ├── favicon.svg           站点图标

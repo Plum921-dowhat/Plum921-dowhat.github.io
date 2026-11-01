@@ -5,13 +5,16 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Pages 站点需先在仓库 Settings → Pages 将 Source 设为 "GitHub Actions"。
+# 该操作需仓库管理员权限，GITHUB_TOKEN 不具备，故不在此处尝试自动启用。
 permissions:
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -21,17 +24,28 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Configure Pages (auto-enable if needed)
+      - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
-      - name: Upload site
+      # 仅发布站点运行所需的文件。以下划线开头的备份图与脚本、README
+      # 及仓库元数据目录不参与构建，避免通过站点 URL 直接访问。
+      - name: Stage site
+        run: |
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='_site/' \
+            --exclude='_*.png' \
+            --exclude='_*.py' \
+            --exclude='README.md' \
+            ./ _site/
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy
         id: deployment
