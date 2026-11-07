@@ -949,19 +949,34 @@ code {
 @media (max-width: 720px) {
   :root { --fs-lg: 24px; --fs-xl: 36px; }
   .section { padding: 64px 0; }
-  .hero { padding-top: 48px; }
+  /* Hero 不再额外留上边距：横幅需与导航栏贴合，否则顶部会露出一条背景色空白 */
+  .hero { padding-top: 0; }
   .hero__name { line-height: 48px; margin-top: 24px; }
   .hero__role { font-size: var(--fs-xs); line-height: 24px; }
   .sec-title { line-height: 36px; }
   .grid--art, .grid--code { grid-template-columns: minmax(0, 1fr); }
   .stats { grid-template-columns: minmax(0, 1fr); }
-  .lightbox { padding: 24px 16px 96px; flex-direction: column; }
+  /* 灯箱：窄屏下画面纵向排列。工具条固定为顶部单行，翻页按钮绝对定位到画面
+     下方两侧，两者各占一端，避免原先按钮排在内容流顶部、被工具条遮挡 */
+  .lightbox { padding: 72px 16px 88px; flex-direction: column; gap: 0; }
   .lightbox__tools {
-    top: 16px;
-    flex-wrap: wrap;
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+    flex-wrap: nowrap;
     justify-content: center;
-    max-width: calc(100% - 96px);
+    gap: 6px;
+    max-width: none;
+    padding: 6px 8px;
   }
+  .lightbox__tool { min-width: 32px; height: 32px; padding: 0 6px; font-size: 18px; }
+  .lightbox__zoom { min-width: 46px; }
+  .lightbox__figure { max-width: 100%; }
+  .lightbox__figure img { max-height: 60vh; }
+  .lightbox__nav { position: absolute; bottom: 16px; }
+  .lightbox__nav--prev { left: 16px; }
+  .lightbox__nav--next { right: 16px; }
   .lightbox__hint { display: none; }
 
   .nav {
