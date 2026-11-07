@@ -68,7 +68,12 @@
 /* ---------------- 3. 基础 ---------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* 横向溢出兜底：body 上的 overflow-x 会被传播到视口、body 自身不再裁剪，
+     故 html 与 body 同时设置，保证残留的超宽内容不会产生横向滚动 */
+  overflow-x: clip;
+}
 
 body {
   margin: 0;
@@ -246,11 +251,10 @@ code {
   background: var(--ink);
 }
 
-/* 提示条 */
+/* 提示条：标签与说明文字按行内流排版。
+   原 flex 布局下，文字与 code 元素会合并为一个不可拆分的匿名 flex 项，
+   该项无法收缩，窄屏时会把页面横向撑宽；改为普通块级容器后文字可正常折行。 */
 .hint {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
   margin-top: 32px;
   padding: 12px 16px;
   background: var(--paper);
@@ -258,7 +262,8 @@ code {
   color: var(--ink-2);
 }
 .hint__key {
-  flex: 0 0 auto;
+  display: inline-block;
+  margin-right: 12px;
   padding: 2px 8px;
   background: var(--mustard);
   color: var(--paper);
