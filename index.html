@@ -118,16 +118,18 @@
   <!-- ======================= 画作 ======================= -->
   <section class="section" id="art">
     <div class="wrap">
-      <header class="sec-head sec-head--row">
+      <header class="sec-head">
         <div class="sec-head__text">
           <h2 class="sec-title"><span class="sec-title__mark" aria-hidden="true"></span>画作画坊</h2>
           <p class="sec-sub">手绘、板绘、像素画——都往这儿挂</p>
         </div>
-        <a class="sec-more" href="artworks.html">显示更多<span class="sec-more__arrow" aria-hidden="true"></span></a>
       </header>
 
-      <!-- 筛选按钮由 data.js 的 tags 自动生成 -->
-      <div class="filters" id="artFilters" role="group" aria-label="画作筛选"></div>
+      <!-- 筛选按钮由 data.js 的 tags 自动生成；「显示更多」与标签同排，靠右对齐 -->
+      <div class="sec-tools">
+        <div class="filters" id="artFilters" role="group" aria-label="画作筛选"></div>
+        <a class="sec-more" href="artworks.html">显示更多<span class="sec-more__arrow" aria-hidden="true"></span></a>
+      </div>
 
       <!-- 卡片由 js/data.js 渲染，占位内容可直接替换 -->
       <div class="grid grid--art" id="artGrid"></div>
@@ -143,19 +145,21 @@
   <!-- ======================= 代码演示 ======================= -->
   <section class="section section--alt" id="code">
     <div class="wrap">
-      <header class="sec-head sec-head--row">
+      <header class="sec-head">
         <div class="sec-head__text">
           <h2 class="sec-title"><span class="sec-title__mark" aria-hidden="true"></span>代码演示</h2>
           <p class="sec-sub">截图、录屏、动图都放这里，视频也可以直接播。</p>
         </div>
-        <a class="sec-more" href="code.html">显示更多<span class="sec-more__arrow" aria-hidden="true"></span></a>
       </header>
 
-      <h3 class="sub-title">截图 / 动图</h3>
+      <div class="sub-head">
+        <h3 class="sub-title">截图 / 动图</h3>
+        <a class="sec-more" href="code.html">显示更多<span class="sec-more__arrow" aria-hidden="true"></span></a>
+      </div>
       <div class="grid grid--code" id="codeGrid"></div>
       <div class="load-more" id="codeMore"></div>
 
-      <div class="sub-head">
+      <div class="sub-head sub-head--gap">
         <h3 class="sub-title">视频演示</h3>
         <a class="sec-more" href="videos.html">显示更多<span class="sec-more__arrow" aria-hidden="true"></span></a>
       </div>
