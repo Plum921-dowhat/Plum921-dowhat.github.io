@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>视频演示 · PLUM921</title>
+<meta name="description" content="PLUM921 的视频演示合集，点击封面即可播放。">
+<meta name="theme-color" content="#F5EEE1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- 字体：方舟像素字体 Ark Pixel Font (SIL OFL 1.1) -->
+<link rel="preload" href="fonts/ark-pixel-12px-proportional-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ark-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- data-list / data-show-all / data-title 由 js/main.js 读取：
+     指定本页展示的集合、一次列出全部条目、以及页面标题 -->
+<body data-list="videos" data-show-all data-title="视频演示">
+
+<!-- CRT 扫描线滤镜（纯装饰，可删除） -->
+<div class="crt" aria-hidden="true"></div>
+
+<!-- ======================= 顶栏 ======================= -->
+<header class="topbar" id="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__pixel" aria-hidden="true"></span>
+      <span class="brand__text">PLUM<em>921</em></span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="index.html" class="nav__link">首页</a>
+      <a href="index.html#art" class="nav__link">画作</a>
+      <a href="index.html#code" class="nav__link is-active">代码</a>
+      <a href="index.html#about" class="nav__link">关于</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="nav">
+      <span aria-hidden="true"></span>MENU
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ======================= 页头 ======================= -->
+  <section class="page-head">
+    <div class="wrap">
+      <nav class="crumb" aria-label="位置">
+        <a href="index.html">首页</a>
+        <span class="crumb__sep" aria-hidden="true">/</span>
+        <a href="index.html#code">代码演示</a>
+        <span class="crumb__sep" aria-hidden="true">/</span>
+        <span>视频演示</span>
+      </nav>
+
+      <h1 class="page-head__title">
+        <span class="sec-title__mark" aria-hidden="true"></span>视频演示
+      </h1>
+      <p class="page-head__sub">录屏与动效演示的完整列表。点击封面在弹窗中播放，ESC 可关闭。</p>
+
+      <div class="page-head__bar">
+        <span class="page-head__count" id="listCount"></span>
+        <a class="btn" href="index.html#code">返回主页</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 视频列表 ======================= -->
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="video-list" id="videoList"></div>
+      <div class="load-more" id="videoMore"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= 页脚 ======================= -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__copy">© <span id="year">2026</span> <span id="footerName">PLUM921</span> · 像素小屋</p>
+    <p class="footer__font">
+      字体：<a href="https://github.com/TakWolf/ark-pixel-font" target="_blank" rel="noopener">方舟像素字体 Ark Pixel Font</a>
+      · SIL OFL 1.1
+    </p>
+  </div>
+</footer>
+
+<!-- ======================= 视频弹窗 ======================= -->
+<div class="modal" id="videoModal" hidden>
+  <div class="modal__box">
+    <div class="window__bar">
+      <span class="window__dot window__dot--a"></span>
+      <span class="window__dot window__dot--b"></span>
+      <span class="window__dot window__dot--c"></span>
+      <span class="window__title" id="vmTitle">video</span>
+      <button class="modal__close" id="vmClose" type="button" aria-label="关闭">×</button>
+    </div>
+    <div class="modal__body">
+      <video id="vmPlayer" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

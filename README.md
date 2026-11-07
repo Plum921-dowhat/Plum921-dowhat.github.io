@@ -12,6 +12,9 @@
 ```
 Plum921-dowhat.github.io/
 ├── index.html            页面骨架（区块与占位标记都在这里）
+├── artworks.html         全部画作（主页「显示更多」跳转）
+├── code.html             全部代码演示（主页「显示更多」跳转）
+├── videos.html           全部视频演示（主页「显示更多」跳转）
 ├── 404.html              GitHub Pages 的 404 页
 ├── favicon.svg           站点图标
 ├── .nojekyll             让 GitHub Pages 原样发布（别删）
@@ -39,3 +42,20 @@ Plum921-dowhat.github.io/
 - `fonts/ark-pixel-12px-proportional-zh-hans.woff2`
 
 如需更新，去 [Releases](https://github.com/TakWolf/ark-pixel-font/releases) 下载 `...-12px-proportional-otf.woff2-*.zip` 覆盖同名文件即可（建议保持文件名不变）。
+
+---
+
+## 分类子页面
+
+主页三个区块标题右侧的「显示更多」分别指向 `artworks.html`、`code.html`、`videos.html`：
+主页按 `js/data.js` 里 `pageSize` 的数量显示，「显示更多」页则一次列出该分类的全部条目。
+
+子页面与主页共用同一套 `css/style.css` 与 `js/main.js`，差异只写在 `<body>` 的三个属性上：
+
+| 属性 | 作用 |
+| --- | --- |
+| `data-list="artworks"` | 指定本页统计的数据集合（用于显示「共 N 项」） |
+| `data-show-all` | 不分页，一次渲染全部条目 |
+| `data-title="全部画作"` | 浏览器标签页标题，主页不使用该属性 |
+
+新增分类页时，复制任一子页面、改写这三个属性与对应的网格容器 `id` 即可。

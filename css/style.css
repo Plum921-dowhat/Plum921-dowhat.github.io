@@ -218,6 +218,49 @@ code {
   border-bottom: var(--line);
 }
 .sec-head { margin-bottom: 32px; }
+/* 标题行：左侧标题与副标题，右侧「显示更多」入口 */
+.sec-head--row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.sec-head__text { min-width: 0; }
+.sec-more {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow);
+  color: var(--red-deep);
+  letter-spacing: .14em;
+  white-space: nowrap;
+  transition: transform .06s steps(2), box-shadow .06s steps(2), background .06s;
+}
+.sec-more:hover {
+  background: var(--red-wash);
+  color: var(--red);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+.sec-more:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--shadow); }
+.sec-more__arrow { width: 0; height: 0; border: 4px solid transparent; border-left-color: currentColor; border-right: 0; }
+
+/* 小节标题行：同样支持右侧入口（如视频演示） */
+.sub-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 32px 0 20px;
+}
+.sub-head .sub-title { margin: 0; }
+
 .sec-title {
   display: flex;
   align-items: center;
@@ -269,6 +312,50 @@ code {
   color: var(--paper);
   letter-spacing: .1em;
 }
+
+/* 子页面（分类总览）页头：与主页区块同一套像素描边与墨色标签 */
+.page-head { padding: 64px 0 40px; }
+.crumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: var(--ink-3);
+  letter-spacing: .1em;
+}
+.crumb a { border-bottom: 2px solid transparent; }
+.crumb a:hover { border-bottom-color: var(--red-soft); }
+.crumb__sep { color: var(--red-soft); }
+.page-head__title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  letter-spacing: .06em;
+  line-height: 56px;
+}
+.page-head__sub {
+  margin-top: 12px;
+  max-width: 62ch;
+  color: var(--ink-2);
+  letter-spacing: .06em;
+}
+.page-head__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.page-head__count {
+  padding: 4px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  letter-spacing: .16em;
+}
+.page-head__count:empty { display: none; }
 
 /* 滚动进入动画（仅在 JS 正常时启用，保证无 JS 也能看到全部内容） */
 .has-js .reveal { opacity: 0; transform: translateY(16px); }
@@ -958,6 +1045,11 @@ code {
   .hero__name { line-height: 48px; margin-top: 24px; }
   .hero__role { font-size: var(--fs-xs); line-height: 24px; }
   .sec-title { line-height: 36px; }
+  /* 窄屏下「显示更多」移到标题下方，避免与标题挤在同一行 */
+  .sec-head--row { align-items: flex-start; gap: 12px; }
+  .page-head { padding: 40px 0 24px; }
+  .page-head__title { font-size: var(--fs-lg); line-height: 36px; gap: 12px; }
+  .page-head__bar { margin-top: 20px; }
   .grid--art, .grid--code { grid-template-columns: minmax(0, 1fr); }
   .stats { grid-template-columns: minmax(0, 1fr); }
   /* 灯箱：窄屏下画面纵向排列。工具条固定为顶部单行，翻页按钮绝对定位到画面

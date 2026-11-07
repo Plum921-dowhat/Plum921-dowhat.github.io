@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全部画作 · PLUM921</title>
+<meta name="description" content="PLUM921 的全部画作 —— 手绘、板绘与像素画，点击可放大细看。">
+<meta name="theme-color" content="#F5EEE1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- 字体：方舟像素字体 Ark Pixel Font (SIL OFL 1.1) -->
+<link rel="preload" href="fonts/ark-pixel-12px-proportional-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ark-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- data-list / data-show-all / data-title 由 js/main.js 读取：
+     指定本页展示的集合、一次列出全部条目、以及页面标题 -->
+<body data-list="artworks" data-show-all data-title="全部画作">
+
+<!-- CRT 扫描线滤镜（纯装饰，可删除） -->
+<div class="crt" aria-hidden="true"></div>
+
+<!-- ======================= 顶栏 ======================= -->
+<header class="topbar" id="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__pixel" aria-hidden="true"></span>
+      <span class="brand__text">PLUM<em>921</em></span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="index.html" class="nav__link">首页</a>
+      <a href="index.html#art" class="nav__link is-active">画作</a>
+      <a href="index.html#code" class="nav__link">代码</a>
+      <a href="index.html#about" class="nav__link">关于</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="nav">
+      <span aria-hidden="true"></span>MENU
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ======================= 页头 ======================= -->
+  <section class="page-head">
+    <div class="wrap">
+      <nav class="crumb" aria-label="位置">
+        <a href="index.html">首页</a>
+        <span class="crumb__sep" aria-hidden="true">/</span>
+        <a href="index.html#art">画作画坊</a>
+        <span class="crumb__sep" aria-hidden="true">/</span>
+        <span>全部画作</span>
+      </nav>
+
+      <h1 class="page-head__title">
+        <span class="sec-title__mark" aria-hidden="true"></span>全部画作
+      </h1>
+      <p class="page-head__sub">主页只摆最近的一部分，完整作品按顺序列在这里。点开可缩放、拖拽、全屏细看。</p>
+
+      <div class="page-head__bar">
+        <span class="page-head__count" id="listCount"></span>
+        <a class="btn" href="index.html#art">返回主页</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 画作列表 ======================= -->
+  <section class="section section--alt">
+    <div class="wrap">
+      <!-- 筛选按钮由 js/data.js 的 tags 自动生成 -->
+      <div class="filters" id="artFilters" role="group" aria-label="画作筛选"></div>
+
+      <div class="grid grid--art" id="artGrid"></div>
+      <div class="load-more" id="artMore"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= 页脚 ======================= -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__copy">© <span id="year">2026</span> <span id="footerName">PLUM921</span> · 像素小屋</p>
+    <p class="footer__font">
+      字体：<a href="https://github.com/TakWolf/ark-pixel-font" target="_blank" rel="noopener">方舟像素字体 Ark Pixel Font</a>
+      · SIL OFL 1.1
+    </p>
+  </div>
+</footer>
+
+<!-- ======================= 图片灯箱 ======================= -->
+<div class="lightbox" id="lightbox" hidden tabindex="-1">
+
+  <!-- 缩放工具条：仅从画作画廊进入时显示（代码截图保持原来的简洁模式） -->
+  <div class="lightbox__tools" id="lbTools" hidden>
+    <button class="lightbox__tool" id="lbZoomOut" type="button" aria-label="缩小">−</button>
+    <span class="lightbox__zoom" id="lbZoomVal">100%</span>
+    <button class="lightbox__tool" id="lbZoomIn" type="button" aria-label="放大">＋</button>
+    <button class="lightbox__tool" id="lbZoomFit" type="button" aria-label="适应窗口">适应</button>
+    <button class="lightbox__tool" id="lbFull" type="button" aria-label="全屏展示">全屏</button>
+    <span class="lightbox__hint">滚轮缩放 · 拖拽平移 · 双击放大 · F 全屏</span>
+  </div>
+
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" type="button" aria-label="上一张">‹</button>
+  <figure class="lightbox__figure">
+    <img id="lbImg" src="" alt="">
+    <figcaption class="lightbox__caption">
+      <span id="lbTitle"></span>
+      <span class="lightbox__meta" id="lbMeta"></span>
+    </figcaption>
+  </figure>
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" type="button" aria-label="下一张">›</button>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

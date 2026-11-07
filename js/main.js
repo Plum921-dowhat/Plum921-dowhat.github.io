@@ -112,7 +112,11 @@
       }
     }
 
-    document.title = (p.name || "PLUM921") + " · 个人主页";
+    // 子页面通过 body[data-title] 指定自己的标题，主页沿用默认标题
+    var pageTitle = document.body.getAttribute("data-title");
+    document.title = pageTitle
+      ? pageTitle + " · " + (p.name || "PLUM921")
+      : (p.name || "PLUM921") + " · 个人主页";
   }
 
   /* ---------------- 社交链接 ---------------- */
@@ -289,6 +293,8 @@
   function initView(key, sizeKey, defSize) {
     var ps = DATA.pageSize || {};
     var n = ps[sizeKey] == null ? defSize : ps[sizeKey];
+    // 子页面用 body[data-show-all] 声明「全部列出」，一次渲染完、不显示加载更多
+    if (document.body.hasAttribute("data-show-all")) n = 0;
     state[key] = { filter: "全部", page: n, step: n === 0 ? 0 : n };
   }
 
@@ -800,6 +806,15 @@
     if (y) y.textContent = String(new Date().getFullYear());
   }
 
+  /* ---------------- 子页面：分类条目总数 ---------------- */
+  function renderListCount() {
+    var el = $("#listCount");
+    if (!el) return;
+    var key = document.body.getAttribute("data-list");
+    var list = (key && DATA[key]) || [];
+    el.textContent = list.length ? "共 " + list.length + " 项" : "";
+  }
+
   /* ---------------- 启动 ---------------- */
   function init() {
     initView("art", "artworks", 12);
@@ -813,6 +828,7 @@
     renderCode();
     renderVideos();
     renderStatsSkills();
+    renderListCount();
     bindLightbox();
     bindVideo();
     bindNav();

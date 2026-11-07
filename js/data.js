@@ -20,8 +20,8 @@ window.SITE_DATA = {
   /* ---------- 1. 基本信息 ---------- */
   profile: {
     name: "PLUM921",
-    role: "画画 / 写代码 / 做点小东西",
-    intro: "这里是黄时，个人主页兼顾画作和代码作品，目前还在制作中，其他内容后面会陆续放进来。",
+    role: "画画 / 写代码 / 做些小玩意",
+    intro: "这里是黄时，个人主页兼顾画作和代码作品，目前还在制作中，其他内容后面会陆续加入。",
     avatar: "assets/avatar/image.png",   // 【替换】换成 assets/avatar/头像.png
     footerName: "黄时PLUM",// 头像下方的名字
     // 顶部横幅（建议 480×60 或更宽的低分辨率横构图像素图，页面全宽铺满）
@@ -35,7 +35,7 @@ window.SITE_DATA = {
       '$ whoami',
       '<span class="t-red">plum921</span>',
       '$ cat interests.txt',
-      '<span class="t-dim">// 画画、代码、像素、复古游戏</span>',
+      '<span class="t-dim">// 画画、代码、像素、独游</span>',
       '$ ls ./works',
       '<span class="t-dim">artworks/  code-demos/  videos/</span>',
       '$ status --now',
@@ -49,13 +49,13 @@ window.SITE_DATA = {
       "Plum",
       "正在持续更新中",
       "THANKS FOR VISITING",
-      "迎接清晨，欢度学习的每天",
+      "迎接清晨，和余生的每一天",
       "祝你阅览愉快",
       "ART & CODE",
       "Plum",
       "正在持续更新中",
       "THANKS FOR VISITING",
-      "迎接清晨，欢度学习的每天"
+      "迎接清晨，和余生的每一天"
     ]
   },
 
@@ -64,7 +64,7 @@ window.SITE_DATA = {
     { label: "GitHub",  href: "https://github.com/Plum921-dowhat" },
     { label: "Bilibili", href: "#" },
     { label: "lofter",   href: "#" },
-    { label: "Email",   href: "#" }
+    { label: "Email",   href: "mailto:huangshiplum123456@gmail.com" }
   ],
 
   /* ---------- 3. 画作 ----------
@@ -74,10 +74,14 @@ window.SITE_DATA = {
   artworks: [
     { title: "作品 01", src: "assets/artworks/Transformer.png", tags: ["插画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
     { title: "作品 02", src: "assets/artworks/art-02.svg", tags: ["像素画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
-    { title: "作品 03", src: "assets/artworks/art-03.svg", tags: ["插画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
+    { title: "作品 03", src: "assets/artworks/Transformer2.png", tags: ["插画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
     { title: "作品 04", src: "assets/artworks/art-04.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。" },
     { title: "作品 05", src: "assets/artworks/art-05.svg", tags: ["oc"], date: "2026", desc: "占位内容，替换成你自己的画。" },
-    { title: "作品 06", src: "assets/artworks/art-06.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。" }
+    { title: "作品 06", src: "assets/artworks/art-06.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。" },
+    { title: "Christy", src: "assets/artworks/Christy.png", tags: ["插画", "oc"], date: "2026", desc: "蓝白调角色插画，翅膀与天平的主题。" },
+    { title: "Clove", src: "assets/artworks/clove.png", tags: ["插画", "oc"], date: "2026", desc: "粉紫调角色插画，猫耳与漫画分格。" },
+    { title: "Lan Sir", src: "assets/artworks/lan-sir.png", tags: ["插画", "oc"], date: "2026", desc: "舞台演出主题，蓝紫灯光与手写歌词。" },
+    { title: "Transformer 3", src: "assets/artworks/Transformer3.png", tags: ["插画", "同人"], date: "2026", desc: "手账风拼贴，变形金刚同人。" }
   ],
 
   /* ---------- 4. 代码截图 / 动图 ---------- */
