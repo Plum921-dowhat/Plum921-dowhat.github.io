@@ -23,6 +23,7 @@ window.SITE_DATA = {
     role: "画画 / 写代码 / 做些小玩意",
     intro: "这里是黄时，个人主页兼顾画作和代码作品，目前还在制作中，其他内容后面会陆续加入。",
     avatar: "assets/avatar/image.png",   // 【替换】换成 assets/avatar/头像.png
+    avatarThumb: "assets/avatar/thumbs/image.webp",  // 头像缩略图，由 tools/make_thumbs.py 生成；省略时退回 avatar
     footerName: "黄时PLUM",// 头像下方的名字
     // 顶部横幅（建议 480×60 或更宽的低分辨率横构图像素图，页面全宽铺满）
     banner: "assets/banner/orchard-480x60.png",       // 【替换】换成你自己的图
@@ -68,20 +69,21 @@ window.SITE_DATA = {
   ],
 
   /* ---------- 3. 画作 ----------
-     src   : 图片路径（建议放进 assets/artworks/）
+     src   : 原图路径（建议放进 assets/artworks/），灯箱与全屏只读取这一项
+     thumb : 网格缩略图路径，由 tools/make_thumbs.py 生成；省略时网格退回读取 src
      tags  : 会出现在筛选按钮里
   --------------------------------- */
   artworks: [
-    { title: "作品 01", src: "assets/artworks/Transformer.png", tags: ["插画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
+    { title: "Optimus Prime", src: "assets/artworks/Transformer.png", thumb: "assets/artworks/thumbs/Transformer.webp", tags: ["插画", "同人"], date: "2026", desc: "Transformer 抱了一只大猫。" },
     { title: "作品 02", src: "assets/artworks/art-02.svg", tags: ["像素画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
-    { title: "作品 03", src: "assets/artworks/Transformer2.png", tags: ["插画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
+    { title: "Crush blacks", src: "assets/artworks/Transformer2.png", thumb: "assets/artworks/thumbs/Transformer2.webp", tags: ["插画", "同人"], date: "2026", desc: "看完《领袖之证》有感。" },
     { title: "作品 04", src: "assets/artworks/art-04.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。" },
     { title: "作品 05", src: "assets/artworks/art-05.svg", tags: ["oc"], date: "2026", desc: "占位内容，替换成你自己的画。" },
     { title: "作品 06", src: "assets/artworks/art-06.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。" },
-    { title: "Christy", src: "assets/artworks/Christy.png", tags: ["插画", "oc"], date: "2026", desc: "蓝白调角色插画，翅膀与天平的主题。" },
-    { title: "Clove", src: "assets/artworks/clove.png", tags: ["插画", "oc"], date: "2026", desc: "粉紫调角色插画，猫耳与漫画分格。" },
-    { title: "Lan Sir", src: "assets/artworks/lan-sir.png", tags: ["插画", "oc"], date: "2026", desc: "舞台演出主题，蓝紫灯光与手写歌词。" },
-    { title: "Transformer 3", src: "assets/artworks/Transformer3.png", tags: ["插画", "同人"], date: "2026", desc: "手账风拼贴，变形金刚同人。" }
+    { title: "Christy", src: "assets/artworks/Christy.png", thumb: "assets/artworks/thumbs/Christy.webp", tags: ["插画", "oc"], date: "2026", desc: "尝试微鱼眼透视。" },
+    { title: "Clove", src: "assets/artworks/clove.png", thumb: "assets/artworks/thumbs/clove.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试重色和其他配色" },
+    { title: "Orchid-sir", src: "assets/artworks/Orchid-sir.png", thumb: "assets/artworks/thumbs/Orchid-sir.webp", tags: ["插画", "oc"], date: "2026", desc: "打光尝试。bgm:《Drown Out The Noise》" },
+    { title: "Drift x Ratchet", src: "assets/artworks/Transformer3.png", thumb: "assets/artworks/thumbs/Transformer3.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试拼贴风，请支持《More Than Meet The Eyes》" }
   ],
 
   /* ---------- 4. 代码截图 / 动图 ---------- */

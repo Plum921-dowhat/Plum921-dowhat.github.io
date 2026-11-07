@@ -56,7 +56,7 @@
 
     var av = $("#avatarImg");
     if (av && p.avatar) {
-      av.src = p.avatar;
+      av.src = p.avatarThumb || p.avatar;
       av.onerror = function () { av.onerror = null; av.src = fallbackImg("AVATAR"); };
     }
 
@@ -68,7 +68,8 @@
       frame.setAttribute("aria-label", "放大查看头像");
       var openAvatar = function () {
         openSingle({
-          src: av.currentSrc || av.src,
+          src: p.avatar,                    // 灯箱读取原图
+          thumb: av.currentSrc || av.src,   // 已缓存的缩略图先占位
           title: (p.name || "AVATAR") + " · 头像",
           tags: ["头像"]
         }, "art");
@@ -197,8 +198,12 @@
       img.loading = "lazy";
       img.decoding = "async";
       img.alt = item.title || "";
-      img.src = item.src;
-      img.onerror = function () { img.onerror = null; img.src = fallbackImg("NO IMAGE"); };
+      // 网格只读取缩略图；未提供 thumb 时退回原图，保证缺少派生文件也能正常显示
+      img.src = item.thumb || item.src;
+      img.onerror = function () {
+        img.onerror = null;
+        img.src = item.thumb ? item.src : fallbackImg("NO IMAGE");
+      };
       thumb.appendChild(img);
 
       if (isPlaceholder(item.src)) {
@@ -527,6 +532,24 @@
     zoomAt(window.innerWidth / 2, window.innerHeight / 2, factor);
   }
 
+  /* 灯箱始终展示原图。网格中已加载的缩略图先占住画面，原图解码完成后再替换，
+     避免打开或翻页时出现空白等待。want 用于丢弃快速翻页时的过期回调。 */
+  function showFullImage(item) {
+    var full = item.src || "";
+    var thumb = item.thumb || "";
+    lbImg.dataset.want = full;
+    if (!thumb || thumb === full) {
+      lbImg.src = full;
+      return;
+    }
+    lbImg.src = thumb;
+    var pre = new Image();
+    pre.onload = function () {
+      if (lbImg.dataset.want === full) lbImg.src = full;
+    };
+    pre.src = full;
+  }
+
   function paint() {
     var card = lbList[lbIndex];
     if (!card) return;
@@ -534,7 +557,7 @@
     zm.on = (card._kind || "art") === "art";
     if (lbTools) lbTools.hidden = !zm.on;
     zoomReset();
-    lbImg.src = item.src;
+    showFullImage(item);
     lbImg.alt = item.title || "";
     lbTitle.textContent = item.title || "";
     var counter = lbList.length > 1 ? "   [" + (lbIndex + 1) + "/" + lbList.length + "]" : "";
@@ -568,6 +591,7 @@
   }
   function closeLightbox() {
     lb.hidden = true;
+    lbImg.dataset.want = "";       // 丢弃尚未完成的原图替换
     lbImg.src = "";
     zm.on = false;
     if (fsActive()) fsExit();          // 直接关闭时顺手退出全屏
