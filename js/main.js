@@ -505,11 +505,22 @@
     if (zm.on) zoomApply(); else lbImg.style.transform = "";
   }
   function clampPan() {
-    // 平移边界按图片实际渲染尺寸动态计算（offsetWidth/Height 不受 transform 影响），
-    // 图片超出视口的方向才允许拖动；铺满后刚好推到边缘为止
-    var w = lbImg.offsetWidth * zm.s, h = lbImg.offsetHeight * zm.s;
-    var limX = Math.max(0, (w - window.innerWidth) / 2);
-    var limY = Math.max(0, (h - window.innerHeight) / 2);
+    // offsetWidth/Height 是布局尺寸，不受 transform 影响，可作为未缩放的基准
+    var baseW = lbImg.offsetWidth, baseH = lbImg.offsetHeight;
+    var w = baseW * zm.s, h = baseH * zm.s;
+    var limX, limY;
+    if (fsActive()) {
+      // 全屏时画框不再裁剪，图片溢出部分直接可见；平移边界取视口，
+      // 保证画面始终被图片填满，不会拖出背景
+      limX = Math.max(0, (w - window.innerWidth) / 2);
+      limY = Math.max(0, (h - window.innerHeight) / 2);
+    } else {
+      // 画框内查看时，图片四点被 .lightbox__figure 裁剪，可平移的距离即被裁掉的一半，
+      // 这样图片四边的内容都能逐一拖入视野。此前以视口为参照，窄图放大后会被判定为
+      // 尚未超出视口，横向平移被锁死为 0，表现为只能上下拖动。
+      limX = Math.max(0, (w - baseW) / 2);
+      limY = Math.max(0, (h - baseH) / 2);
+    }
     zm.tx = Math.max(-limX, Math.min(limX, zm.tx));
     zm.ty = Math.max(-limY, Math.min(limY, zm.ty));
   }
@@ -812,6 +823,60 @@
     setTimeout(showAll, 1500);
   }
 
+  /* ---------------- 回到顶部 ---------------- */
+  // 浮动按钮由脚本注入，四个内容页共用一处实现。
+  // 以 <a href="#"> 为基础：脚本未执行时点击仍能回到顶部，只是没有平滑过渡。
+
+  // 像素阶梯箭头：顶点坐标全部取整数，内容占 36×36 并以 (20,20) 为中心，
+  // 与 SVG 视框的上下左右留白均为 2；左箭头复用同一路径，绕中心旋转 -90°。
+  var ARROW_PATH = "M16 2h8v4h4v4h4v4h4v4h2v4h-12v16h-12v-16h-12v-4h2v-4h4v-4h4v-4h4V2z";
+
+  function bindToTop() {
+    var btn = document.createElement("a");
+    btn.className = "to-top";
+    btn.href = "#";
+    btn.setAttribute("aria-label", "回到页面顶部");
+    // 箭头用内联 SVG 绘制：像素字体只有一个字重，无法加粗。
+    // 轮廓取整数坐标的阶梯多边形（无斜边、无描边外扩），
+    // 内容占 36×36 且以视框中心对称，缩放后不会出现半像素毛边或越界裁切。
+    btn.innerHTML =
+      '<svg class="to-top__arrow" viewBox="0 0 40 40" aria-hidden="true" shape-rendering="crispEdges">' +
+        '<path d="' + ARROW_PATH + '" fill="currentColor"/>' +
+      '</svg>';
+    document.body.appendChild(btn);
+
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      try {
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      } catch (err) {
+        window.scrollTo(0, 0);        // 不支持选项对象的老浏览器
+      }
+      btn.blur();                     // 按钮随之上移隐藏，焦点不留在隐藏元素上
+    });
+
+    // 首屏不显示，向下滚动一段后再出现。触发阈值按实际可滚动距离缩放：
+    // 内容较短的页面（如视频列表）总滚动量不足 480px，固定阈值会让按钮永不出现。
+    // 滚动回调只读 scrollY，不查询布局；高度变化交由 ResizeObserver 重算。
+    // 此处不使用 requestAnimationFrame 节流：帧回调在后台标签页等情况下不执行，
+    // 一旦用作互斥标志便会让状态永久停在初次结果。
+    var maxScroll = 0, threshold = 0;
+    function measure() {
+      maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      threshold = Math.min(480, Math.max(120, maxScroll * 0.4));
+    }
+    function sync() {
+      btn.classList.toggle("is-visible", maxScroll > 40 && window.scrollY > threshold);
+    }
+    window.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", function () { measure(); sync(); }, { passive: true });
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(function () { measure(); sync(); }).observe(document.body);
+    }
+    measure();
+    sync();
+  }
+
   /* ---------------- 时间 / 年份 ---------------- */
   function clock() {
     var el = $("#statusClock");
@@ -856,6 +921,7 @@
     bindLightbox();
     bindVideo();
     bindNav();
+    bindToTop();
     setupYear();
     clock();
     // 卡片渲染完再挂观察器

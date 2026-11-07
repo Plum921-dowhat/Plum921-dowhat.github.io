@@ -43,6 +43,14 @@
   </div>
 </header>
 
+<!-- 常驻返回入口：固定在左下角，列表滚动到任何位置都可直接回主页 -->
+<a class="back-home" href="index.html#code" aria-label="返回主页" title="返回主页">
+  <svg class="back-home__arrow" viewBox="0 0 40 40" aria-hidden="true" shape-rendering="crispEdges">
+    <path d="M16 2h8v4h4v4h4v4h4v4h2v4h-12v16h-12v-16h-12v-4h2v-4h4v-4h4v-4h4V2z"
+          fill="currentColor" transform="rotate(-90 20 20)"/>
+  </svg>
+</a>
+
 <main>
 
   <!-- ======================= 页头 ======================= -->
@@ -63,7 +71,6 @@
 
       <div class="page-head__bar">
         <span class="page-head__count" id="listCount"></span>
-        <a class="btn" href="index.html#code">返回主页</a>
       </div>
     </div>
   </section>

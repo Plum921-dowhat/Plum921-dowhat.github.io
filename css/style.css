@@ -1028,7 +1028,75 @@ code {
   line-height: 1;
 }
 
-/* ---------------- 14. 响应式 ---------------- */
+/* ---------------- 14. 浮动导航（回到顶部 / 返回主页） ---------------- */
+.to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;               /* 高于顶栏，低于灯箱与视频弹窗，遮罩打开时自动被盖住 */
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  background: var(--paper);
+  border: var(--line);
+  box-shadow: 8px 8px 0 var(--red-deep);
+  color: var(--ink);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, background .15s ease, color .15s ease;
+}
+.to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: var(--red); color: var(--paper); }
+.to-top:active { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--red-deep); }
+/* 箭头为内联 SVG，尺寸即图标尺寸；颜色随按钮文字色变化 */
+.to-top__arrow {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+/* 子页面常驻返回入口：固定在左下角，与右下角的回到顶部按钮成对。
+   顶栏在窄屏下不再吸顶，页头里的返回按钮滚过一屏后便不可见；
+   改为固定定位后，无论列表多长都能随时返回。
+   尺寸与「回到顶部」完全一致，两枚箭头分居左右下角，构图对称且遮挡最少。 */
+.back-home {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 90;               /* 与回到顶部同级：高于顶栏，低于灯箱与视频弹窗 */
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  background: var(--paper);
+  border: var(--line);
+  box-shadow: 8px 8px 0 var(--red-deep);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background .15s ease, color .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+.back-home:hover { background: var(--red); color: var(--paper); }
+.back-home:active { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--red-deep); }
+.back-home__arrow {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+/* 遮罩层打开时收起浮动导航：灯箱与视频弹窗的底色为 92% 不透明，
+   按钮会隐约透出一块浅色影子。:has 不受支持时仅退化为轻微透出 */
+body:has(.lightbox:not([hidden])) .to-top,
+body:has(.lightbox:not([hidden])) .back-home,
+body:has(.modal:not([hidden])) .to-top,
+body:has(.modal:not([hidden])) .back-home {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ---------------- 15. 响应式 ---------------- */
 @media (max-width: 960px) {
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: 40px; }
   .grid--art { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1092,9 +1160,13 @@ code {
   .topbar { position: relative; }
   .topbar__inner { height: 64px; }
   .nav { top: 64px; }
+
+  /* 浮动导航：窄屏收紧尺寸与边距，减少对正文的遮挡 */
+  .to-top { right: 16px; bottom: 16px; width: 88px; height: 88px; }
+  .back-home { left: 16px; bottom: 16px; width: 88px; height: 88px; }
 }
 
-/* ---------------- 15. 动效偏好 ---------------- */
+/* ---------------- 16. 动效偏好 ---------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .ticker__track { animation: none; }
