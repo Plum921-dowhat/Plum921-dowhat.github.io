@@ -60,6 +60,28 @@
       av.onerror = function () { av.onerror = null; av.src = fallbackImg("AVATAR"); };
     }
 
+    // 头像点击放大：复用图片灯箱（单项查看，画作缩放模式）
+    var frame = $("#avatarFrame");
+    if (frame && av) {
+      frame.setAttribute("role", "button");
+      frame.setAttribute("tabindex", "0");
+      frame.setAttribute("aria-label", "放大查看头像");
+      var openAvatar = function () {
+        openSingle({
+          src: av.currentSrc || av.src,
+          title: (p.name || "AVATAR") + " · 头像",
+          tags: ["头像"]
+        }, "art");
+      };
+      frame.addEventListener("click", openAvatar);
+      frame.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          openAvatar();
+        }
+      });
+    }
+
     // 顶部像素横幅
     var fig = $("#banner"), bn = $("#bannerImg");
     if (fig && bn) {
@@ -509,8 +531,15 @@
     lbImg.src = item.src;
     lbImg.alt = item.title || "";
     lbTitle.textContent = item.title || "";
-    lbMeta.textContent = (item.tags || []).join(" / ") + (item.date ? "  ·  " + item.date : "") +
-                         "   [" + (lbIndex + 1) + "/" + lbList.length + "]";
+    var counter = lbList.length > 1 ? "   [" + (lbIndex + 1) + "/" + lbList.length + "]" : "";
+    lbMeta.textContent = (item.tags || []).join(" / ") + (item.date ? "  ·  " + item.date : "") + counter;
+
+    // 单项查看（如头像）没有可翻的页，隐藏左右翻页按钮
+    var single = lbList.length < 2;
+    ["#lbPrev", "#lbNext"].forEach(function (sel) {
+      var btn = $(sel);
+      if (btn) btn.hidden = single;
+    });
   }
 
   function openLightbox(gridEl, card) {
@@ -521,6 +550,16 @@
     document.body.style.overflow = "hidden";
     lb.focus();   // 焦点交给灯箱容器（keydown 挂在 document 上，ESC/方向键照常工作）
   }
+
+  // 单项查看：头像等独立图片使用，不参与翻页
+  function openSingle(item, kind) {
+    lbList = [{ _item: item, _kind: kind || "art" }];
+    lbIndex = 0;
+    paint();
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    lb.focus();
+  }
   function closeLightbox() {
     lb.hidden = true;
     lbImg.src = "";
@@ -529,7 +568,7 @@
     document.body.style.overflow = "";
   }
   function step(delta) {
-    if (!lbList.length) return;
+    if (lbList.length < 2) return;   // 单项查看时不翻页
     lbIndex = (lbIndex + delta + lbList.length) % lbList.length;
     paint();
   }

@@ -406,6 +406,8 @@ code {
   letter-spacing: .2em;
   color: var(--ink-3);
 }
+/* 头像可点击放大：仅在脚本可用时提示可点，无脚本时保持普通图片 */
+.has-js .avatar { cursor: zoom-in; }
 
 .hero__name {
   margin-top: 32px;
@@ -828,6 +830,8 @@ code {
 }
 .lightbox__nav:hover { background: var(--red); color: var(--paper); }
 .lightbox__nav { flex: 0 0 auto; }
+/* 单项查看（如头像）时脚本会置 hidden，显式兜底避免被 display 覆盖 */
+.lightbox__nav[hidden] { display: none; }
 
 /* 全屏展示（Fullscreen API 作用于 .lightbox 本身；进入时自动放大到图片铺满全屏） */
 .lightbox:fullscreen {
