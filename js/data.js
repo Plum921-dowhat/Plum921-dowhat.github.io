@@ -72,18 +72,28 @@ window.SITE_DATA = {
      src   : 原图路径（建议放进 assets/artworks/），灯箱与全屏只读取这一项
      thumb : 网格缩略图路径，由 tools/make_thumbs.py 生成；省略时网格退回读取 src
      tags  : 会出现在筛选按钮里
+     thumbPos : 缩略图取景位置，写法同 CSS 的 object-position，两个百分比表示「水平 垂直」。
+             网格会把缩略图裁成方形（画作）或 16:9（代码截图），长图默认从正中取景，
+             画面重心偏上时写 thumbPos: "50% 20%"，偏下写 "50% 80%"；
+             只影响网格缩略图，灯箱里仍是完整原图。不写该字段即居中裁切。
+     home  : 设为 false 时该条只在「画作画坊」子页面列出，主页不显示；
+             不写该字段即视为参与主页展示
+     数组顺序即展示顺序：主页与子页面都按此排列
   --------------------------------- */
   artworks: [
-    { title: "Optimus Prime", src: "assets/artworks/Transformer.png", thumb: "assets/artworks/thumbs/Transformer.webp", tags: ["插画", "同人"], date: "2026", desc: "Transformer 抱了一只大猫。" },
-    { title: "作品 02", src: "assets/artworks/art-02.svg", tags: ["像素画"], date: "2026", desc: "占位内容，替换成你自己的画。" },
-    { title: "Crush blacks", src: "assets/artworks/Transformer2.png", thumb: "assets/artworks/thumbs/Transformer2.webp", tags: ["插画", "同人"], date: "2026", desc: "看完《领袖之证》有感。" },
-    { title: "作品 04", src: "assets/artworks/art-04.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。" },
-    { title: "作品 05", src: "assets/artworks/art-05.svg", tags: ["oc"], date: "2026", desc: "占位内容，替换成你自己的画。" },
-    { title: "作品 06", src: "assets/artworks/art-06.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。" },
+    { title: "Optimus Prime", src: "assets/artworks/Transformer.png", thumb: "assets/artworks/thumbs/Transformer.webp", tags: ["插画", "同人"], date: "2026", desc: "Transformer 抱了一只大猫。",thumbPos: "50% 50%"},
+    { title: "Crush blacks", src: "assets/artworks/Transformer2.png", thumb: "assets/artworks/thumbs/Transformer2.webp", tags: ["插画", "同人"], date: "2026", desc: "看完《领袖之证》有感。" ,thumbPos: "10% 50%"},
+    { title: "Drift x Ratchet", src: "assets/artworks/Transformer3.png", thumb: "assets/artworks/thumbs/Transformer3.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试拼贴风，请支持《More Than Meet The Eyes》" },
     { title: "Christy", src: "assets/artworks/Christy.png", thumb: "assets/artworks/thumbs/Christy.webp", tags: ["插画", "oc"], date: "2026", desc: "尝试微鱼眼透视。" },
-    { title: "Clove", src: "assets/artworks/clove.png", thumb: "assets/artworks/thumbs/clove.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试重色和其他配色" },
     { title: "Orchid-sir", src: "assets/artworks/Orchid-sir.png", thumb: "assets/artworks/thumbs/Orchid-sir.webp", tags: ["插画", "oc"], date: "2026", desc: "打光尝试。bgm:《Drown Out The Noise》" },
-    { title: "Drift x Ratchet", src: "assets/artworks/Transformer3.png", thumb: "assets/artworks/thumbs/Transformer3.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试拼贴风，请支持《More Than Meet The Eyes》" }
+    { title: "Clove", src: "assets/artworks/clove.png", thumb: "assets/artworks/thumbs/clove.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试重色和其他配色", thumbPos: "75% 50%" },
+
+    /* 以下为模板自带的占位条目：仅出现在画作子页面，主页不列出。
+       替换成自己的作品时，删掉 home 字段即可同步显示在主页。 */
+    { title: "作品 02", src: "assets/artworks/art-02.svg", tags: ["像素画"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false },
+    { title: "作品 04", src: "assets/artworks/art-04.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false },
+    { title: "作品 05", src: "assets/artworks/art-05.svg", tags: ["oc"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false },
+    { title: "作品 06", src: "assets/artworks/art-06.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false }
   ],
 
   /* ---------- 4. 代码截图 / 动图 ---------- */

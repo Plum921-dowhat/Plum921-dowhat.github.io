@@ -200,6 +200,10 @@
       img.alt = item.title || "";
       // 网格只读取缩略图；未提供 thumb 时退回原图，保证缺少派生文件也能正常显示
       img.src = item.thumb || item.src;
+      // 取景位置：网格会把图裁成方形或 16:9，长图默认从正中取景。
+      // 条目填写 thumbPos（写法同 CSS object-position，如 "50% 25%"）可指定保留哪一部分，
+      // 省略时沿用居中裁切，不影响其余条目。
+      if (item.thumbPos) img.style.objectPosition = item.thumbPos;
       img.onerror = function () {
         img.onerror = null;
         img.src = item.thumb ? item.src : fallbackImg("NO IMAGE");
@@ -308,7 +312,13 @@
     var filterBox = $("#artFilters");
     if (!grid) return;
 
-    var items = DATA.artworks || [];
+    // 主页只列出参与展示的条目：带 home:false 的占位作品仅在子页面出现。
+    // 子页面用 body[data-show-all] 声明「全部列出」，此时不做这项过滤。
+    // 筛选按钮同样由过滤后的条目生成，避免出现点进去空无一物的分类。
+    var listAll = document.body.hasAttribute("data-show-all");
+    var items = (DATA.artworks || []).filter(function (it) {
+      return listAll || it.home !== false;
+    });
     items.forEach(function (item, i) { grid.appendChild(makeCard(item, i, "art")); });
 
     if (filterBox) {
