@@ -88,29 +88,58 @@ window.SITE_DATA = {
     { title: "Orchid-sir", src: "assets/artworks/Orchid-sir.png", thumb: "assets/artworks/thumbs/Orchid-sir.webp", tags: ["插画", "oc"], date: "2026", desc: "打光尝试。bgm:《Drown Out The Noise》" },
     { title: "Clove", src: "assets/artworks/clove.png", thumb: "assets/artworks/thumbs/clove.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试重色和其他配色", thumbPos: "75% 50%" },
 
-    /* 以下为模板自带的占位条目：仅出现在画作子页面，主页不列出。
-       替换成自己的作品时，删掉 home 字段即可同步显示在主页。 */
-    { title: "作品 02", src: "assets/artworks/art-02.svg", tags: ["像素画"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false },
-    { title: "作品 04", src: "assets/artworks/art-04.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false },
-    { title: "作品 05", src: "assets/artworks/art-05.svg", tags: ["oc"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false },
-    { title: "作品 06", src: "assets/artworks/art-06.svg", tags: ["草图"], date: "2026", desc: "占位内容，替换成你自己的画。", home: false }
+    /* ---- 子页面预留空位：10 个，只在 artworks.html 出现 ----
+       这十条是「还没画好」的空格子，占好位、编好号，等素材到位再填。
+       填入方法：把 src 换成图片路径，补上 title / tags / date / desc，
+       然后删掉这一行的 slot 与 home，它就成了普通作品（删 home 才会同步出现在主页）。
+       空位不参与筛选，也不会出现在主页，因此不需要给它们填 tags。 */
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false }
   ],
 
-  /* ---------- 4. 代码截图 / 动图 ---------- */
+  /* ---------- 4. 代码截图 / 动图 ----------
+     字段同画作：src 原图、thumb 缩略图（网格读这一项）、link 项目地址（可留空）。
+     下面十条同样是 code.html 的预留空位，填入方法与画作一致：
+     补好 src / title / tags / desc，再删掉 slot 与 home 即可。
+  --------------------------------- */
   codeDemos: [
-    { title: "项目 01", src: "assets/code/code-01.svg", tags: ["Web"], date: "2026", desc: "项目简介写这里。", link: "" },
-    { title: "项目 02", src: "assets/code/code-02.svg", tags: ["工具"], date: "2026", desc: "项目简介写这里。", link: "" },
-    { title: "项目 03", src: "assets/code/code-03.svg", tags: ["实验"], date: "2026", desc: "项目简介写这里。", link: "" },
-    { title: "项目 04", src: "assets/code/code-04.svg", tags: ["Web"], date: "2026", desc: "项目简介写这里。", link: "" }
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false }
   ],
 
   /* ---------- 5. 视频演示 ----------
      src    : 视频文件（mp4/webm）。留空 "" 时显示"待上传"占位。
      poster : 封面图。留空会自动用占位图。
+     下面十条是 videos.html 的预留空位，填入方法同上：
+     补好 src 与 poster，再删掉 slot 与 home 即可。
   --------------------------------- */
   videos: [
-    { title: "视频演示 01", src: "", poster: "assets/video/poster-01.svg", date: "", desc: "放一段录屏或动效演示，支持 mp4 / webm。" },
-    { title: "视频演示 02", src: "", poster: "assets/video/poster-02.svg", date: "", desc: "在此填充并上传视频。" }
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false },
+    { slot: true, title: "待填入", src: "", home: false }
   ],
 
   /* ---------- 6. 关于页 ---------- */

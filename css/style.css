@@ -757,6 +757,46 @@ code {
   letter-spacing: .2em;
 }
 
+/* 预留空位：子页面尾部固定留出的待填入格子（js/data.js 里 slot:true 的条目）。
+   序号由脚本按列表位置写进 data-slot，样式表用 attr() 取用，
+   与卡片右下角的编号一致，方便对照顺序补图。 */
+.card--slot {
+  background: var(--cream-soft);
+  border-color: var(--ink-3);
+  box-shadow: none;
+}
+.card--slot:hover { transform: none; box-shadow: none; }
+.card--slot .card__thumb { border-bottom: 0; background: transparent; }
+.grid--art  .card--slot .card__thumb { aspect-ratio: 1 / 1; }
+.grid--code .card--slot .card__thumb { aspect-ratio: 16 / 9; }
+.card--slot .card__thumb::after {
+  content: attr(data-slot);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(45deg,
+    var(--paper-2) 0 8px, var(--cream-soft) 8px 16px);
+  color: var(--ink-2);
+  font-size: 36px;
+  letter-spacing: .1em;
+}
+.card--slot .card__title { color: var(--ink-2); }
+
+/* 主页空态：该分类只剩空位时，用一条说明横幅占满整行，避免区块空成断层。
+   这里不铺斜纹——斜纹表示「图片待放」，横幅只是说明文字，铺满会盖过正文。 */
+.grid-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 32px 24px;
+  background: var(--paper);
+  border: 2px dashed var(--ink-3);
+  color: var(--ink-2);
+  text-align: center;
+  letter-spacing: .12em;
+}
+
 /* ---------------- 9. 视频列表 ---------------- */
 .video-list { display: grid; gap: 24px; }
 .video-item {
@@ -806,6 +846,32 @@ code {
 .video-item__poster:hover .video-item__play { transform: translate(-2px, -2px); }
 .video-item--empty .video-item__poster { cursor: not-allowed; }
 .video-item--empty .video-item__play { box-shadow: none; opacity: .5; }
+
+/* 视频预留空位：不铺封面图，封面位置改用与卡片一致的等待区域 */
+.video-item--slot {
+  background: var(--cream-soft);
+  border-color: var(--ink-3);
+  box-shadow: none;
+}
+.video-item--slot .video-item__poster {
+  border-right: 0;
+  background: transparent;
+  cursor: default;
+}
+.video-item--slot .video-item__poster::after {
+  content: attr(data-slot);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: repeating-linear-gradient(45deg,
+    var(--paper-2) 0 8px, var(--cream-soft) 8px 16px);
+  color: var(--ink-2);
+  font-size: 36px;
+  letter-spacing: .1em;
+}
+.video-item--slot .video-item__play { display: none; }
 .video-item__body { padding: 24px; }
 .video-item__title {
   font-size: var(--fs-md);

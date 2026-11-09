@@ -184,14 +184,19 @@
     card.className = "card reveal";
     card.dataset.tags = (item.tags || []).join(",");
 
+    // 预留空位：排好序的待填入格子，没有素材、不可点击
+    var slot = !!item.slot;
     var empty = !item.src;
     if (empty) card.classList.add("card--empty");
+    if (slot) card.classList.add("card--slot");
 
     var thumb = document.createElement("button");
     thumb.className = "card__thumb";
     thumb.type = "button";
     thumb.setAttribute("aria-label", "查看 " + (item.title || ""));
     if (empty) thumb.disabled = true;
+    // 空位序号由样式表通过 attr() 取用，序号即该格子在列表中的位置
+    if (slot) thumb.dataset.slot = String(index + 1).padStart(2, "0");
 
     if (!empty) {
       var img = document.createElement("img");
@@ -224,8 +229,9 @@
 
     var h3 = document.createElement("h3");
     h3.className = "card__title";
+    // 空位的序号已印在格子上，标题行不再重复
     h3.innerHTML = "<span>" + esc(item.title || "") + "</span>" +
-                   '<span class="card__index">' + String(index + 1).padStart(2, "0") + "</span>";
+                   (slot ? "" : '<span class="card__index">' + String(index + 1).padStart(2, "0") + "</span>");
     body.appendChild(h3);
 
     if (item.desc) {
@@ -307,19 +313,35 @@
     state[key] = { filter: "全部", page: n, step: n === 0 ? 0 : n };
   }
 
+  /* 主页只列出参与展示的条目：带 home:false 的预留空位仅在子页面出现。
+     子页面用 body[data-show-all] 声明「全部列出」，此时不做这项过滤。 */
+  function visibleItems(key) {
+    var listAll = document.body.hasAttribute("data-show-all");
+    return (DATA[key] || []).filter(function (it) {
+      return listAll || it.home !== false;
+    });
+  }
+
+  /* 主页没有真实条目时，用一条说明横幅占住整行，避免区块空成一道断层 */
+  function emptyPanel(items) {
+    var slots = items.filter(function (it) { return it.slot; }).length;
+    var p = document.createElement("p");
+    p.className = "grid-empty";
+    p.textContent = slots
+      ? "内容整理中 · 子页面已预留 " + slots + " 个位置"
+      : "内容整理中 · 敬请期待";
+    return p;
+  }
+
   function renderArt() {
     var grid = $("#artGrid");
     var filterBox = $("#artFilters");
     if (!grid) return;
 
-    // 主页只列出参与展示的条目：带 home:false 的占位作品仅在子页面出现。
-    // 子页面用 body[data-show-all] 声明「全部列出」，此时不做这项过滤。
     // 筛选按钮同样由过滤后的条目生成，避免出现点进去空无一物的分类。
-    var listAll = document.body.hasAttribute("data-show-all");
-    var items = (DATA.artworks || []).filter(function (it) {
-      return listAll || it.home !== false;
-    });
+    var items = visibleItems("artworks");
     items.forEach(function (item, i) { grid.appendChild(makeCard(item, i, "art")); });
+    if (!items.length) grid.appendChild(emptyPanel(DATA.artworks || []));
 
     if (filterBox) {
       var tags = [];
@@ -348,9 +370,13 @@
   function renderCode() {
     var grid = $("#codeGrid");
     if (!grid) return;
-    (DATA.codeDemos || []).forEach(function (item, i) {
+    var items = visibleItems("codeDemos");
+    items.forEach(function (item, i) {
       grid.appendChild(makeCard(item, i, "code"));
     });
+    // 主页过滤后一条不剩时补一块说明面板，避免区块空成断层；
+    // 子页面本来就会列出全部空位，不再叠这一块。
+    if (!items.length) grid.appendChild(emptyPanel(DATA.codeDemos || []));
     applyView("code", "#codeGrid", "#codeMore");
   }
 
@@ -362,33 +388,46 @@
     var rerender = list.childElementCount > 0;
     list.innerHTML = "";
 
-    (DATA.videos || []).forEach(function (item) {
+    var items = visibleItems("videos");
+    var slotSeq = 0;
+
+    items.forEach(function (item) {
+      var slot = !!item.slot;
+      if (slot) slotSeq++;
+
       var row = document.createElement("article");
       row.className = "video-item reveal" + (rerender ? " is-in" : "") +
-                      (item.src ? "" : " video-item--empty");
+                      (item.src ? "" : " video-item--empty") +
+                      (slot ? " video-item--slot" : "");
 
       var posterBtn = document.createElement("button");
       posterBtn.className = "video-item__poster";
       posterBtn.type = "button";
       posterBtn.setAttribute("aria-label", "播放 " + (item.title || ""));
 
-      var img = document.createElement("img");
-      img.loading = "lazy";
-      img.decoding = "async";
-      img.alt = item.title || "";
-      img.src = item.poster || fallbackImg("VIDEO");
-      img.onerror = function () { img.onerror = null; img.src = fallbackImg("VIDEO"); };
-      posterBtn.appendChild(img);
-
-      var play = document.createElement("span");
-      play.className = "video-item__play";
-      posterBtn.appendChild(play);
-
-      if (item.src) {
-        posterBtn.addEventListener("click", function () { openVideo(item); });
-      } else {
+      if (slot) {
+        // 预留空位：不铺封面图，等待区域与序号由样式表绘制
         posterBtn.disabled = true;
-        posterBtn.title = "还没有视频文件，把 assets/video/ 里的文件填进 js/data.js";
+        posterBtn.dataset.slot = String(slotSeq).padStart(2, "0");
+      } else {
+        var img = document.createElement("img");
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.alt = item.title || "";
+        img.src = item.poster || fallbackImg("VIDEO");
+        img.onerror = function () { img.onerror = null; img.src = fallbackImg("VIDEO"); };
+        posterBtn.appendChild(img);
+
+        var play = document.createElement("span");
+        play.className = "video-item__play";
+        posterBtn.appendChild(play);
+
+        if (item.src) {
+          posterBtn.addEventListener("click", function () { openVideo(item); });
+        } else {
+          posterBtn.disabled = true;
+          posterBtn.title = "还没有视频文件，把 assets/video/ 里的文件填进 js/data.js";
+        }
       }
       row.appendChild(posterBtn);
 
@@ -405,6 +444,9 @@
 
       list.appendChild(row);
     });
+
+    // 同代码区：只在过滤后一条不剩时补说明面板
+    if (!items.length) list.appendChild(emptyPanel(DATA.videos || []));
 
     // 视频分页
     var st = state.video;
@@ -593,7 +635,8 @@
   }
 
   function openLightbox(gridEl, card) {
-    lbList = $$(".card:not(.is-hidden)", gridEl);
+    // 空位没有图片，不进入翻页队列，否则方向键会翻到空画框
+    lbList = $$(".card:not(.is-hidden):not(.card--empty)", gridEl);
     lbIndex = Math.max(0, lbList.indexOf(card));
     paint();
     lb.hidden = false;
@@ -911,7 +954,14 @@
     if (!el) return;
     var key = document.body.getAttribute("data-list");
     var list = (key && DATA[key]) || [];
-    el.textContent = list.length ? "共 " + list.length + " 项" : "";
+    var real = 0, slots = 0;
+    list.forEach(function (it) { if (it.slot) slots++; else real++; });
+
+    // 空位不是作品，单独计数，避免「共 16 项」被误读成十六件作品
+    var parts = [];
+    if (real) parts.push("共 " + real + " 件");
+    if (slots) parts.push("预留 " + slots + " 个空位");
+    el.textContent = parts.join(" · ");
   }
 
   /* ---------------- 启动 ---------------- */
