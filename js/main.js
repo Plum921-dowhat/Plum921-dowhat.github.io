@@ -241,15 +241,25 @@
       body.appendChild(d);
     }
 
-    if (item.tags && item.tags.length) {
-      var tags = document.createElement("div");
-      tags.className = "card__tags";
-      item.tags.forEach(function (t) {
+    // 年份与标签同排：年份在前，用中性色描边，避免和红色分类标签混为一谈。
+    // 条目未填 date 时只渲染标签，不会留下空行。
+    if (item.date || (item.tags && item.tags.length)) {
+      var meta = document.createElement("div");
+      meta.className = "card__tags";
+
+      if (item.date) {
+        var year = document.createElement("span");
+        year.className = "card__year";
+        year.textContent = item.date;
+        meta.appendChild(year);
+      }
+
+      (item.tags || []).forEach(function (t) {
         var s = document.createElement("span");
         s.textContent = t;
-        tags.appendChild(s);
+        meta.appendChild(s);
       });
-      body.appendChild(tags);
+      body.appendChild(meta);
     }
 
     if (item.link) {
@@ -960,7 +970,7 @@
     // 空位不是作品，单独计数，避免「共 16 项」被误读成十六件作品
     var parts = [];
     if (real) parts.push("共 " + real + " 件");
-    if (slots) parts.push("预留 " + slots + " 个空位");
+    if (slots) parts.push("仍预留了 " + slots + " 个空位");
     el.textContent = parts.join(" · ");
   }
 

@@ -725,6 +725,12 @@ code {
   border: 2px solid var(--red-soft);
   color: var(--red-deep);
 }
+/* 年份：与标签同一排，改用中性描边，读者不会把它当作分类 */
+.card__tags .card__year {
+  background: transparent;
+  border-color: var(--ink-3);
+  color: var(--ink-2);
+}
 .card__links { margin-top: 12px; }
 .card__links a { letter-spacing: .1em; border-bottom: 2px solid var(--red-soft); }
 

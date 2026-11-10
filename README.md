@@ -41,6 +41,7 @@ Plum921-dowhat.github.io/
 ```bash
 python -m http.server 8080
 # 然后访问 http://localhost:8080
+#通常不建议这样做，但如果你想，这样是可以的
 ```
 
 ## 三、字体授权
