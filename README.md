@@ -23,7 +23,7 @@ Plum921-dowhat.github.io/
 │   ├── data.js           ★ 内容配置：文字、链接、作品列表都改这里
 │   └── main.js           交互逻辑（一般不用动）
 ├── fonts/                像素字体 + OFL 授权
-├── tools/                辅助脚本（make_thumbs.py：生成缩略图）
+├── tools/                辅助脚本：make_thumbs.py 生成缩略图，to_lossless_webp.py 转无损 WebP
 └── assets/               素材目录
     ├── banner/           顶部像素横幅（建议 480×60 或更宽的横构图）
     ├── avatar/           头像（1 张）
@@ -118,3 +118,24 @@ python tools/make_thumbs.py --force   # 全部重新生成
 源文件不会被修改。脚本不会自动改写 `js/data.js`，新增条目时请按上面的规律补上 `thumb` 字段。
 
 `assets/artworks/` 下的 SVG 与 `assets/code/` 的截图本身很小，无需生成缩略图。
+
+### 原图转无损 WebP
+
+灯箱读取的是 `src`，也就是原图。PNG 对插画的压缩率不高，二十张原图合计超过 90 MB；
+转成无损 WebP 后像素完全不变，体积降到约六成。现在每张原图旁边都有一份同名 `.webp`，
+`src` 指向的就是它，PNG 原文件仍保留在原处。
+
+```bash
+python tools/to_lossless_webp.py                        # 增量：只处理新增或已更新的源图
+python tools/to_lossless_webp.py --verify               # 转换后解码回来逐像素比对
+python tools/to_lossless_webp.py --force                # 全部重转
+python tools/to_lossless_webp.py --dir assets/code      # 只处理某个目录
+```
+
+默认扫描 `assets/artworks/`、`assets/code/`、`assets/avatar/`，输出为同目录下的 `<原名>.webp`，
+不修改也不删除源文件。两种情况下脚本会跳过并在输出里写明原因：WebP 反而更大（JPEG 已经是
+有损压缩，无损重编码会把原有压缩痕迹一并保留，`6.jpg` 即属此类），以及边长超过 WebP 上限
+16383 像素。压缩档位默认 `--method 4`，换成 `6` 只慢不省。
+
+新增图片的流程变为：放进目录 → 跑一次本脚本 → 在 `js/data.js` 里把 `src` 写成 `.webp` 路径。
+`thumb` 仍由 `make_thumbs.py` 从原图生成，两者互不影响。

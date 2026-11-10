@@ -22,7 +22,7 @@ window.SITE_DATA = {
     name: "PLUM921",
     role: "画画 / 写代码 / 做些小玩意",
     intro: "这里是黄时，个人主页兼顾画作和代码作品，目前还在制作中，其他内容后面会陆续加入。",
-    avatar: "assets/avatar/image.png",   // 【替换】换成 assets/avatar/头像.png
+    avatar: "assets/avatar/image.webp",   // 【替换】换成 assets/avatar/头像.png
     avatarThumb: "assets/avatar/thumbs/image.webp",  // 头像缩略图，由 tools/make_thumbs.py 生成；省略时退回 avatar
     footerName: "黄时PLUM",// 头像下方的名字
     // 顶部横幅（建议 480×60 或更宽的低分辨率横构图像素图，页面全宽铺满）
@@ -82,34 +82,34 @@ window.SITE_DATA = {
   --------------------------------- */
   artworks: [
     /* ---- 主页展示的六幅：不带 home 字段即参与主页 ---- */
-    { title: "Optimus Prime", src: "assets/artworks/Transformer.png", thumb: "assets/artworks/thumbs/Transformer.webp", tags: ["插画", "同人"], date: "2026", desc: "Transformer 抱了一只大猫。", thumbPos: "50% 50%" },
-    { title: "Crush blacks", src: "assets/artworks/Transformer2.png", thumb: "assets/artworks/thumbs/Transformer2.webp", tags: ["插画", "同人"], date: "2026", desc: "看完《领袖之证》有感。", thumbPos: "10% 50%" },
-    { title: "Drift x Ratchet", src: "assets/artworks/Transformer3.png", thumb: "assets/artworks/thumbs/Transformer3.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试拼贴风，请支持《More Than Meet The Eyes》" },
-    { title: "Christy", src: "assets/artworks/Christy.png", thumb: "assets/artworks/thumbs/Christy.webp", tags: ["插画", "oc"], date: "2026", desc: "尝试微鱼眼透视。" },
-    { title: "“圣子”", src: "assets/artworks/3.png", thumb: "assets/artworks/thumbs/3.webp", tags: ["插画", "oc"], date: "2026", desc: "圣子和因他而死的人们", home: false },
-    { title: "Clove", src: "assets/artworks/clove.png", thumb: "assets/artworks/thumbs/clove.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试重色和其他配色", thumbPos: "75% 50%" },
+    { title: "Optimus Prime", src: "assets/artworks/Transformer.webp", thumb: "assets/artworks/thumbs/Transformer.webp", tags: ["插画", "同人"], date: "2026", desc: "Transformer 抱了一只大猫。", thumbPos: "50% 50%" },
+    { title: "Crush blacks", src: "assets/artworks/Transformer2.webp", thumb: "assets/artworks/thumbs/Transformer2.webp", tags: ["插画", "同人"], date: "2026", desc: "看完《领袖之证》有感。", thumbPos: "10% 50%" },
+    { title: "Drift x Ratchet", src: "assets/artworks/Transformer3.webp", thumb: "assets/artworks/thumbs/Transformer3.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试拼贴风，请支持《More Than Meet The Eyes》" },
+    { title: "Christy", src: "assets/artworks/Christy.webp", thumb: "assets/artworks/thumbs/Christy.webp", tags: ["插画", "oc"], date: "2026", desc: "尝试微鱼眼透视。" },
+    { title: "“圣子”", src: "assets/artworks/3.webp", thumb: "assets/artworks/thumbs/3.webp", tags: ["插画", "oc"], date: "2026", desc: "圣子和因他而死的人们", home: false },
+    { title: "Clove", src: "assets/artworks/clove.webp", thumb: "assets/artworks/thumbs/clove.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试重色和其他配色", thumbPos: "75% 50%" },
 
     /* ---- 以下作品只在「画作画坊」子页面列出（home: false），主页仍只放上面六幅 ----
        排列顺序：Transformers 线稿 → 约稿稿件 → 数字序号彩插 → 预留空位 */
    
     /* 约稿稿件 */
-    { title: "稿件1", src: "assets/artworks/commission1.png", thumb: "assets/artworks/thumbs/commission1.webp", tags: ["稿件", "线稿"], date: "2025", desc: "我 超 级 喜 欢 这 张。", thumbPos: "50% 10%", home: false },
-    { title: "稿件2", src: "assets/artworks/commission2.png", thumb: "assets/artworks/thumbs/commission2.webp", tags: ["稿件", "线稿"], date: "2025", desc: "接稿期画的最后一张。", thumbPos: "50% 10%", home: false },
-    { title: "稿件3", src: "assets/artworks/commission3.png", thumb: "assets/artworks/thumbs/commission3.webp", tags: ["稿件"], date: "2025", desc: "画得最超常发挥并且很顺利的一张。", thumbPos: "50% 10%", home: false },
-    { title: "稿件4", src: "assets/artworks/commission4.png", thumb: "assets/artworks/thumbs/commission4.webp", tags: ["稿件"], date: "2025", desc: "我一开始最喜欢的一张。", thumbPos: "50% 10%", home: false },
+    { title: "稿件1", src: "assets/artworks/commission1.webp", thumb: "assets/artworks/thumbs/commission1.webp", tags: ["稿件", "线稿"], date: "2025", desc: "我 超 级 喜 欢 这 张。", thumbPos: "50% 10%", home: false },
+    { title: "稿件2", src: "assets/artworks/commission2.webp", thumb: "assets/artworks/thumbs/commission2.webp", tags: ["稿件", "线稿"], date: "2025", desc: "接稿期画的最后一张。", thumbPos: "50% 10%", home: false },
+    { title: "稿件3", src: "assets/artworks/commission3.webp", thumb: "assets/artworks/thumbs/commission3.webp", tags: ["稿件"], date: "2025", desc: "画得最超常发挥并且很顺利的一张。", thumbPos: "50% 10%", home: false },
+    { title: "稿件4", src: "assets/artworks/commission4.webp", thumb: "assets/artworks/thumbs/commission4.webp", tags: ["稿件"], date: "2025", desc: "我一开始最喜欢的一张。", thumbPos: "50% 10%", home: false },
 
     /* 数字序号命名的彩插：按序号排在真实作品末尾 */
-    { title: "Orchid-sir", src: "assets/artworks/Orchid-sir.png", thumb: "assets/artworks/thumbs/Orchid-sir.webp", tags: ["插画", "oc"], date: "2025", desc: "打光尝试。bgm:《Drown Out The Noise》" },
-    { title: "被束缚的", src: "assets/artworks/1.png", thumb: "assets/artworks/thumbs/1.webp", tags: ["插画", "oc"], date: "2025", desc: "第一张半身插。", thumbPos: "50% 10%", home: false },
-    { title: "绫", src: "assets/artworks/2.png", thumb: "assets/artworks/thumbs/2.webp", tags: ["插画", "oc"], date: "2024", desc: "世界观下的神秘产物。", thumbPos: "50% 10%", home: false },
-    { title: "万圣节", src: "assets/artworks/4.png", thumb: "assets/artworks/thumbs/4.webp", tags: ["插画", "oc"], date: "2024", desc: "万圣节贺图，和原图差异很大。", thumbPos: "50% 15%", home: false },
-    { title: "弓的肖像", src: "assets/artworks/5.png", thumb: "assets/artworks/thumbs/5.webp", tags: ["oc"], date: "2024", desc: "尝试了一些画法。", home: false },
+    { title: "Orchid-sir", src: "assets/artworks/Orchid-sir.webp", thumb: "assets/artworks/thumbs/Orchid-sir.webp", tags: ["插画", "oc"], date: "2025", desc: "打光尝试。bgm:《Drown Out The Noise》" },
+    { title: "被束缚的", src: "assets/artworks/1.webp", thumb: "assets/artworks/thumbs/1.webp", tags: ["插画", "oc"], date: "2025", desc: "第一张半身插。", thumbPos: "50% 10%", home: false },
+    { title: "绫", src: "assets/artworks/2.webp", thumb: "assets/artworks/thumbs/2.webp", tags: ["插画", "oc"], date: "2024", desc: "世界观下的神秘产物。", thumbPos: "50% 10%", home: false },
+    { title: "万圣节", src: "assets/artworks/4.webp", thumb: "assets/artworks/thumbs/4.webp", tags: ["插画", "oc"], date: "2024", desc: "万圣节贺图，和原图差异很大。", thumbPos: "50% 15%", home: false },
+    { title: "弓的肖像", src: "assets/artworks/5.webp", thumb: "assets/artworks/thumbs/5.webp", tags: ["oc"], date: "2024", desc: "尝试了一些画法。", home: false },
     { title: "小头像", src: "assets/artworks/6.jpg", thumb: "assets/artworks/thumbs/6.webp", tags: ["oc"], date: "2023", desc: "以前一直用的小头像", home: false },
 
-    { title: "线稿+1", src: "assets/artworks/BLACK (1).png", thumb: "assets/artworks/thumbs/BLACK (1).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", thumbPos: "50% 15%", home: false },
-    { title: "线稿+1", src: "assets/artworks/BLACK (2).png", thumb: "assets/artworks/thumbs/BLACK (2).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", thumbPos: "50% 40%", home: false },
-    { title: "线稿+1", src: "assets/artworks/BLACK (3).png", thumb: "assets/artworks/thumbs/BLACK (3).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", home: false },
-    { title: "线稿+1", src: "assets/artworks/BLACK (4).png", thumb: "assets/artworks/thumbs/BLACK (4).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", home: false },
+    { title: "线稿+1", src: "assets/artworks/BLACK (1).webp", thumb: "assets/artworks/thumbs/BLACK (1).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", thumbPos: "50% 15%", home: false },
+    { title: "线稿+1", src: "assets/artworks/BLACK (2).webp", thumb: "assets/artworks/thumbs/BLACK (2).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", thumbPos: "50% 40%", home: false },
+    { title: "线稿+1", src: "assets/artworks/BLACK (3).webp", thumb: "assets/artworks/thumbs/BLACK (3).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", home: false },
+    { title: "线稿+1", src: "assets/artworks/BLACK (4).webp", thumb: "assets/artworks/thumbs/BLACK (4).webp", tags: ["线稿"], date: "2026", desc: "无，只是展示线稿。", home: false },
 
     /* ---- 子页面预留空位：10 个，只在 artworks.html 出现 ----
        这十条是「还没画好」的空格子，占好位、编好号，等素材到位再填。
@@ -134,12 +134,12 @@ window.SITE_DATA = {
      补好 src / title / tags / desc，再删掉 slot 与 home 即可。
   --------------------------------- */
   codeDemos: [
-    { title: "爬虫结果看板", src: "assets/code/Snipaste_2026-11-08_01-08-20.png", tags: ["Web", "数据"], date: "2026", desc: "爬虫管道的统计看板，爬虫主要抓取 dev 技术平台文章。", link: "" },
-    { title: "Evil Words 首页", src: "assets/code/Snipaste_2026-11-09_09-16-09.png", tags: ["Web", "工具"], date: "2026", desc: "基于 SM-2 间隔重复的英语学习平台，我在首页添加了热力图。", link: "" },
-    { title: "Evil Words 词库", src: "assets/code/Snipaste_2026-11-09_09-16-28.png", tags: ["Web", "工具"], date: "2026", desc: "数据库存储的其中一份词库列表，这个会作为基础数据库存在应用后台。", link: "", home: false },
-    { title: "Algoscope 排序预览", src: "assets/code/Snipaste_2026-11-10_14-09-44.png", tags: ["Web", "工具"], date: "2026", desc: "排序过程可视化：便于学习者理解算法原理。", link: "" },
-    { title: "Algoscope内页复杂度对比总表", src: "assets/code/Snipaste_2026-11-10_14-51-24.png", tags: ["Web", "数据"], date: "2026", desc: "供我自己学习制作，包含程序内已有的所有算法复杂度。", link: "", home: false },
-    { title: "Nexus-RAG知识检索库", src: "assets/code/Snipaste_2026-11-10_15-01-36.png", tags: ["Web", "工具"], date: "2026", desc: "文档经 Redis Stream 异步切片入库，用于知识管理与检索。", link: "" },
+    { title: "爬虫结果看板", src: "assets/code/Snipaste_2026-11-08_01-08-20.webp", tags: ["Web", "数据"], date: "2026", desc: "爬虫管道的统计看板，爬虫主要抓取 dev 技术平台文章。", link: "" },
+    { title: "Evil Words 首页", src: "assets/code/Snipaste_2026-11-09_09-16-09.webp", tags: ["Web", "工具"], date: "2026", desc: "基于 SM-2 间隔重复的英语学习平台，我在首页添加了热力图。", link: "" },
+    { title: "Evil Words 词库", src: "assets/code/Snipaste_2026-11-09_09-16-28.webp", tags: ["Web", "工具"], date: "2026", desc: "数据库存储的其中一份词库列表，这个会作为基础数据库存在应用后台。", link: "", home: false },
+    { title: "Algoscope 排序预览", src: "assets/code/Snipaste_2026-11-10_14-09-44.webp", tags: ["Web", "工具"], date: "2026", desc: "排序过程可视化：便于学习者理解算法原理。", link: "" },
+    { title: "Algoscope内页复杂度对比总表", src: "assets/code/Snipaste_2026-11-10_14-51-24.webp", tags: ["Web", "数据"], date: "2026", desc: "供我自己学习制作，包含程序内已有的所有算法复杂度。", link: "", home: false },
+    { title: "Nexus-RAG知识检索库", src: "assets/code/Snipaste_2026-11-10_15-01-36.webp", tags: ["Web", "工具"], date: "2026", desc: "文档经 Redis Stream 异步切片入库，用于知识管理与检索。", link: "" },
     { slot: true, title: "待填入", src: "", home: false },
     { slot: true, title: "待填入", src: "", home: false },
     { slot: true, title: "待填入", src: "", home: false },

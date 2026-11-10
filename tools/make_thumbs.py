@@ -23,18 +23,30 @@ from PIL import Image
 
 ASSET_ROOT = Path(__file__).resolve().parent.parent / "assets"
 SOURCE_DIRS = [ASSET_ROOT / "artworks", ASSET_ROOT / "avatar"]
-SOURCE_SUFFIXES = {".png", ".jpg", ".jpeg"}
+SOURCE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 LONG_EDGE = 800
 QUALITY = 82
 
+# When a stem exists in several formats, keep the one that compressed it least:
+# the source images live as lossless WebP now, and a matching PNG or JPEG is a
+# higher-quality master that should win if both are present.
+FORMAT_PRIORITY = {".png": 0, ".jpg": 1, ".jpeg": 2, ".webp": 3}
+
 
 def collect_sources() -> list[Path]:
-    found: list[Path] = []
+    """Return one source per image, ignoring the derived files in ``thumbs``."""
+    best: dict[Path, Path] = {}
     for directory in SOURCE_DIRS:
         if not directory.is_dir():
             continue
-        found.extend(p for p in sorted(directory.iterdir()) if p.suffix.lower() in SOURCE_SUFFIXES)
-    return found
+        for path in directory.iterdir():
+            if not path.is_file() or path.suffix.lower() not in SOURCE_SUFFIXES:
+                continue
+            stem = path.parent / path.stem
+            current = best.get(stem)
+            if current is None or FORMAT_PRIORITY[path.suffix.lower()] < FORMAT_PRIORITY[current.suffix.lower()]:
+                best[stem] = path
+    return [best[key] for key in sorted(best)]
 
 
 def render(src: Path, force: bool) -> tuple[Path, int, int]:
