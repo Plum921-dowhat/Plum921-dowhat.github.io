@@ -86,7 +86,7 @@ window.SITE_DATA = {
     { title: "Crush blacks", src: "assets/artworks/Transformer2.webp", thumb: "assets/artworks/thumbs/Transformer2.webp", tags: ["插画", "同人"], date: "2026", desc: "看完《领袖之证》有感。", thumbPos: "10% 50%" },
     { title: "Drift x Ratchet", src: "assets/artworks/Transformer3.webp", thumb: "assets/artworks/thumbs/Transformer3.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试拼贴风，请支持《More Than Meet The Eyes》" },
     { title: "Christy", src: "assets/artworks/Christy.webp", thumb: "assets/artworks/thumbs/Christy.webp", tags: ["插画", "oc"], date: "2026", desc: "尝试微鱼眼透视。" },
-    { title: "“圣子”", src: "assets/artworks/3.webp", thumb: "assets/artworks/thumbs/3.webp", tags: ["插画", "oc"], date: "2026", desc: "圣子和因他而死的人们", home: false },
+    { title: "“圣子”", src: "assets/artworks/3.webp", thumb: "assets/artworks/thumbs/3.webp", tags: ["插画", "oc"], date: "2026", desc: "圣子和因他而死的人们"},
     { title: "Clove", src: "assets/artworks/clove.webp", thumb: "assets/artworks/thumbs/clove.webp", tags: ["插画", "同人"], date: "2026", desc: "尝试重色和其他配色", thumbPos: "75% 50%" },
 
     /* ---- 以下作品只在「画作画坊」子页面列出（home: false），主页仍只放上面六幅 ----
@@ -99,7 +99,7 @@ window.SITE_DATA = {
     { title: "稿件4", src: "assets/artworks/commission4.webp", thumb: "assets/artworks/thumbs/commission4.webp", tags: ["稿件"], date: "2025", desc: "我一开始最喜欢的一张。", thumbPos: "50% 10%", home: false },
 
     /* 数字序号命名的彩插：按序号排在真实作品末尾 */
-    { title: "Orchid-sir", src: "assets/artworks/Orchid-sir.webp", thumb: "assets/artworks/thumbs/Orchid-sir.webp", tags: ["插画", "oc"], date: "2025", desc: "打光尝试。bgm:《Drown Out The Noise》" },
+    { title: "Orchid-sir", src: "assets/artworks/Orchid-sir.webp", thumb: "assets/artworks/thumbs/Orchid-sir.webp", tags: ["插画", "oc"], date: "2025", desc: "打光尝试。bgm:《Drown Out The Noise》", home: false },
     { title: "被束缚的", src: "assets/artworks/1.webp", thumb: "assets/artworks/thumbs/1.webp", tags: ["插画", "oc"], date: "2025", desc: "第一张半身插。", thumbPos: "50% 10%", home: false },
     { title: "绫", src: "assets/artworks/2.webp", thumb: "assets/artworks/thumbs/2.webp", tags: ["插画", "oc"], date: "2024", desc: "世界观下的神秘产物。", thumbPos: "50% 10%", home: false },
     { title: "万圣节", src: "assets/artworks/4.webp", thumb: "assets/artworks/thumbs/4.webp", tags: ["插画", "oc"], date: "2024", desc: "万圣节贺图，和原图差异很大。", thumbPos: "50% 15%", home: false },
